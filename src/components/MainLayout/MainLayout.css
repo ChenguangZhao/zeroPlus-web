@@ -1,0 +1,63 @@
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+  float: left;
+  transition: color .3s;
+  margin-top: 0px;
+}
+
+.trigger:hover {
+  color: #108ee9;
+}
+
+.headerBg {
+  background: #fff;
+  padding: 0;
+}
+.textCenter{
+  text-align: center;
+}
+.logo {
+  height: 64px;
+  background: #333;
+  border-radius: 6px;
+  margin: 0;
+  background-size: 135px 64px;
+}
+
+.topHeaderRight{
+  float:right;
+  margin:0 16px;
+}
+
+.siteTitle{
+  float: left;
+  font-size: 24px;
+  font-weight:600;
+  height: 64px;
+  line-height: 64px;
+  text-transform: Capitalize;
+}
+.topHeaderHeight{
+  height: 64px;
+
+}
+.imgCircle{
+  height:32px;
+  border: 0;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.personName{
+  margin:0 8px;
+}
+.ant-layout-sider-collapsed .anticon {
+
+  font-size: 16px !important;
+}
+
+.ant-layout-sider-collapsed .nav-text {
+  display: none !important;
+}
