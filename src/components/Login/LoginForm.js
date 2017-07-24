@@ -1,7 +1,7 @@
 import React from 'react';
-import  './LoginForm.css';
-import {Form, Icon, Input, Button, Checkbox, message} from 'antd';
-import {connect} from 'dva';
+import './LoginForm.css';
+import { Button, Checkbox, Form, Icon, Input } from 'antd';
+import { connect } from 'dva';
 
 const FormItem = Form.Item;
 

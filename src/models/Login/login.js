@@ -19,13 +19,23 @@ export default {
       if (result.code === 0 && urlParams.back) {
         message.success("Login Success");
         window.location.href = urlParams.back;
-
       }
     },
+    * queryLoginUser({}, {select, call, put}) {
+      const result = yield call(LoginService.queryLoginUser);
+      if (result.code === 0 && result.data) {
+        yield put({type: 'setState', payload: {user: result.data}});
+      }
+    }
   },
   subscriptions: {
     setup({dispatch, history}) {
       history.listen(location => {
+
+        dispatch({
+          type: 'queryLoginUser'
+        });
+
         window.fbAsyncInit = function () {
           FB.init({
             appId: '151496775419878',
@@ -39,12 +49,12 @@ export default {
             if (response.status === 'connected') {
               FB.api('/me', function (response) {
 
-                dispatch({
-                  type: 'setState',
-                  payload: {
-                    user: response
-                  }
-                });
+                // dispatch({
+                //   type: 'setState',
+                //   payload: {
+                //     user: response
+                //   }
+                // });
               });
             }
           });

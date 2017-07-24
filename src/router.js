@@ -7,7 +7,7 @@ import Register from './routes/Register/Register';
 import Login from './routes/Login/Login';
 import Products from './routes/Products/Products';
 import ProductDetail from './routes/Products/Detail';
-import PersonalInfomation from './routes/Personal/PersonalInfomation';
+import PersonalInfomation from './routes/User/PersonalInfomation';
 
 function RouterConfig({history}) {
   return (

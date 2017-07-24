@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'dva';
 import  './PersonalInfomation.css';
-import {Breadcrumb, Layout} from "antd";
+import {Breadcrumb, Layout,Row,Col} from "antd";
 import {Link} from 'react-router';
-
+import HeadPortrait from '../../components/User/HeadPortrait'
 const {Content} = Layout;
 
 
@@ -16,6 +16,9 @@ function PersonalInfomation() {
       </Breadcrumb>
       <Content style={{margin: '0 16px', padding: 24, background: '#fff', minHeight: 500}}>
 
+        <Row>
+          <HeadPortrait />
+        </Row>
 
       </Content>
     </div>

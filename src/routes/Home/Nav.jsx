@@ -62,8 +62,8 @@ class Header extends React.Component {
       <span>Help</span>
     </Item>)];
 
-    const userTitle = props.login.user.name ? (
-      <SubMenu className="help" key="user" title={props.login.user.name}>
+    const userTitle = props.login.user.username ? (
+      <SubMenu className="help" key="user" title={props.login.user.username}>
         <Item key="info">
           <Link to="/web/PersonalInfomation">Infomation</Link>
         </Item>
