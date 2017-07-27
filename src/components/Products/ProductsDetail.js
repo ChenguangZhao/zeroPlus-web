@@ -1,9 +1,9 @@
-import React from 'react';
-import  './ProductsDetail.css';
-import {Row, Col, Card, Tag, Button, Icon, Tabs, Affix} from 'antd';
+import React from "react";
+import "./ProductsDetail.css";
+import {Button, Card, Col, Row, Tabs, Tag} from "antd";
 import {connect} from "dva";
-import UserTip from '../User/UserTip';
-import CustomerReviews from './CustomerReviews';
+import UserTip from "../User/UserTip";
+import CustomerReviews from "./CustomerReviews";
 
 const TabPane = Tabs.TabPane;
 
@@ -74,15 +74,13 @@ function ProductsDetail(props) {
       <Row gutter={50} style={{marginTop: 20}}>
         <Col span={1}/>
         <Col span={22}>
-          <Affix>
-            <Tabs defaultActiveKey="1">
-              <TabPane tab="Product Information" key="1">
-              </TabPane>
-              <TabPane tab="Customer Reviews" key="2">
-                <CustomerReviews/>
-              </TabPane>
-            </Tabs>
-          </Affix>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Product Information" key="1">
+            </TabPane>
+            <TabPane tab="Customer Reviews" key="2">
+              <CustomerReviews/>
+            </TabPane>
+          </Tabs>
         </Col>
         <Col span={1}/>
 

@@ -3,6 +3,7 @@ import TweenOne from 'rc-tween-one';
 import {Menu, Icon} from 'antd';
 import {connect} from 'dva';
 import {Link} from 'react-router';
+import * as urlUtil from '../../utils/url';
 
 const Item = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -24,21 +25,34 @@ class Header extends React.Component {
   /**
    * 跳转到登录页面
    */
-  handleSingIn = () => {
-    const pathname = window.location.pathname;
-    window.location.href = '/web/Login?back=' + pathname;
+  handleLogin = () => {
+    let pathname = window.location.pathname;
+    const params = urlUtil.getQuery();
+    let count = 0;
+    let spliter = '?';
+    for (let i in params) {
+      if (count !== 0) {
+        spliter = '&';
+      }
+      pathname += (spliter + i + "=" + params[i]);
+      count++;
+    }
+    window.location.href = '/web/Login?back=' + encodeURIComponent(pathname);
   };
 
   /**
    *登出按钮
    */
-  handleSingOut = () => {
+  handleLogout = () => {
+    const self = this;
     FB.logout(function (response) {
-      console.log(response);
-      window.location.href = '/web/';
-      //
-      // if (response.status !== 'connected') {
-      // }
+      if (response.status !== 'connected') {
+        self.props.dispatch({
+          type: 'login/logout',
+          payload: response
+        })
+
+      }
     });
   };
 
@@ -68,22 +82,21 @@ class Header extends React.Component {
           <Link to="/web/PersonalInfomation">Infomation</Link>
         </Item>
         <Item key="Logout">
-          <a onClick={this.handleSingOut}>Logout</a>
+          <a onClick={this.handleLogout}>Logout</a>
         </Item>
       </SubMenu>
     ) : (
-      <Item key={"Login"}><Link style={{color: '#ffffff'}} onClick={this.handleSingIn}>Login</Link></Item>
+      <Item key={"Login"}><Link style={{color: '#ffffff'}} onClick={this.handleLogin}>Login</Link></Item>
     );
 
     navChildren.push(userTitle
       // (<SubMenu className="help" key="user" title={userTitle}>
       //   {props.login.user.name ? <Item key="c">
-      //     <a onClick={this.handleSingOut}>Logout</a>
+      //     <a onClick={this.handleLogout}>Logout</a>
       //   </Item> : ''}
       // </SubMenu>)
     );
 
-    console.log(navChildren);
     return (<TweenOne
       component="header"
       animation={{opacity: 0, type: 'from'}}

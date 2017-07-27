@@ -4,9 +4,12 @@ import {Popover} from 'antd';
 import {connect} from 'dva'
 function UserTip(props) {
 
-  const {children,user} = props;
+  const {children, user} = props;
+
   return (
-    <Popover title={user.username} trigger="click" content={"loading……"}>
+    <Popover title={user.username} trigger="click" content={
+      <img style={{width: 150, height: 150}} src={"/innerApi/portrait/" + user.userId}/>
+    }>
       {children}
     </Popover>
   );

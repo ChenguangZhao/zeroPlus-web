@@ -24,7 +24,7 @@ class LoginForm extends React.Component {
       if (response.status === 'connected') {
         //取得 accessToken
         let accessToken = response.authResponse.accessToken;
-        FB.api('/me?fields=name,first_name,last_name,email', function (response) {
+        FB.api('/me?fields=name,first_name,last_name,email,gender,photos', function (response) {
           response.accessToken = accessToken;
           self.props.dispatch({
             type: 'login/loginWithFacebook',
@@ -70,6 +70,7 @@ class LoginForm extends React.Component {
             Log in
           </Button>
           <Button type="primary" className={"login-facebook-button"} onClick={this.handleLoginWithFacebook}>
+            <i className="iconfont">&#xe600;</i>
             Log in With Facebook
           </Button>
 

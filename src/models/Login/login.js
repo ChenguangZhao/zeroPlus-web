@@ -1,6 +1,7 @@
 import * as LoginService from '../../services/LoginService'
 import * as urlUtil from '../../utils/url';
 import {message} from 'antd';
+import {routerRedux} from 'dva/router';
 
 export default {
   namespace: 'login',
@@ -23,8 +24,22 @@ export default {
     },
     * queryLoginUser({}, {select, call, put}) {
       const result = yield call(LoginService.queryLoginUser);
-      if (result.code === 0 && result.data) {
-        yield put({type: 'setState', payload: {user: result.data}});
+      if (result.code === 0) {
+        if (result.data === null) {
+          console.log(window.location.pathname);
+          if (window.location.pathname === "/web/PersonalInfomation") {
+            yield put(routerRedux.push(`/web/Login?back=${window.location.pathname}`));
+          }
+        } else {
+          yield put({type: 'setState', payload: {user: result.data}});
+        }
+      }
+    },
+    *logout({payload: params}, {select, call, put}) {
+      const result = yield call(LoginService.logout, params);
+      if (result.code === 0) {
+        message.success("Logout Success");
+        window.location.href = '/web/';
       }
     }
   },
@@ -45,19 +60,19 @@ export default {
           });
           FB.AppEvents.logPageView();
 
-          FB.getLoginStatus(function (response) {
-            if (response.status === 'connected') {
-              FB.api('/me', function (response) {
-
-                // dispatch({
-                //   type: 'setState',
-                //   payload: {
-                //     user: response
-                //   }
-                // });
-              });
-            }
-          });
+          // FB.getLoginStatus(function (response) {
+          //   if (response.status === 'connected') {
+          //     FB.api('/me?fields=name,first_name,last_name,email,gender', function (response) {
+          //
+          //       // dispatch({
+          //       //   type: 'setState',
+          //       //   payload: {
+          //       //     user: response
+          //       //   }
+          //       // });
+          //     });
+          //   }
+          // });
         };
 
         (function (d, s, id) {

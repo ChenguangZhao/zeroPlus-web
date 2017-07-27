@@ -18,11 +18,15 @@ const app = dva({
 
 // 3. Model
 // app.model(require('./models/example'));
+
 app.model(require("./models/Login/login"));
 
 app.model(require("./models/Products/productDetail"));
 
 app.model(require("./models/Products/products"));
+
+app.model(require("./models/User/address"));
+
 
 // 4. Router
 app.router(require('./router'));

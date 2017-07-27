@@ -17,3 +17,7 @@ export function facebookAuth(params) {
 export function queryLoginUser() {
   return request('/innerApi/queryLoginUser.do');
 }
+
+  export function logout(params) {
+  return request('/innerApi/logout.do');
+}
