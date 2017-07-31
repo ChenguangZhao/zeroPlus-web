@@ -1,6 +1,6 @@
 import React from 'react';
 import './Address.css';
-import {Table, Popconfirm, Button, Icon} from 'antd'
+import {Table, Popconfirm, Button, Icon, Tag} from 'antd'
 import AddressModal from './AddressModal';
 import {connect} from 'dva'
 
@@ -20,12 +20,35 @@ function Address(props) {
         id: record.id
       }
     })
+  }
 
+  /**
+   * 设为默认地址
+   * @param record
+   */
+  function handleSettingDefault(record) {
+    const {dispatch} = props;
+    dispatch({
+      type: 'address/settingDefaultAddress',
+      payload: {
+        id: record.id
+      }
+    })
   }
 
   const {list, loading} = props.address;
 
   const columns = [{
+    title: 'Default',
+    dataIndex: 'isDefault',
+    key: 'isDefault',
+    width: '8%',
+    render: (text, record, index) => {
+      if (text === 1) {
+        return <Tag color="#3CB371">Default</Tag>
+      }
+    }
+  }, {
     title: 'Country',
     dataIndex: 'country',
     key: 'country',
@@ -39,7 +62,7 @@ function Address(props) {
     title: 'Street address',
     dataIndex: 'streetAddress',
     key: 'streetAddress',
-    width: '20%'
+    width: '15%'
   }, {
     title: 'City',
     dataIndex: 'city',
@@ -64,77 +87,32 @@ function Address(props) {
     title: 'Opertion',
     dataIndex: 'opertion',
     key: 'opertion',
-    width: '10%',
+    width: '15%',
     render: (text, record, index) => {
       return (
         <div >
           <AddressModal record={record}>
-            <a><Icon type="edit"/>Edit</a> &nbsp;&nbsp;
+            <a><Icon type="edit"/>Edit</a> &nbsp;
           </AddressModal>
           <Popconfirm title="Sure to delete?" onConfirm={() => {
             handleDeleteAddress(record);
           }}>
             <a href="#"><Icon type="delete"/>Delete</a>
-          </Popconfirm>
+          </Popconfirm>&nbsp;
+          {record.isDefault === 0 ?
+            <Popconfirm title="Sure to setting default?" onConfirm={() => {
+              handleSettingDefault(record);
+            }}>
+              <a><Icon type="setting"/>Default</a>
+            </Popconfirm> : ''
+          }
         </div>
       )
     }
   }];
 
-  const data = [{
-    key: '1',
-    id: '1',
-    country: 'United States',
-    fullName: 'Chenguang Zhao',
-    streetAddress: 'New York No. 1 Lake Park',
-    city: 'San Mateo',
-    state: 'CA',
-    zipCode: '94402',
-    phoneNumber: '646****672'
-  }, {
-    key: '2',
-    id: '2',
-    country: 'United States',
-    fullName: 'Chenguang Zhao',
-    streetAddress: 'New York No. 1 Lake Park',
-    city: 'San Mateo',
-    state: 'CA',
-    zipCode: '94402',
-    phoneNumber: '646****672'
-  }, {
-    key: '3',
-    id: '3',
-    country: 'United States',
-    fullName: 'Chenguang Zhao',
-    streetAddress: 'New York No. 1 Lake Park',
-    city: 'San Mateo',
-    state: 'CA',
-    zipCode: '94402',
-    phoneNumber: '646****672'
-  }, {
-    key: '4',
-    id: '4',
-    country: 'United States',
-    fullName: 'Chenguang Zhao',
-    streetAddress: 'New York No. 1 Lake Park',
-    city: 'San Mateo',
-    state: 'CA',
-    zipCode: '94402',
-    phoneNumber: '646****672'
-  }, {
-    key: '5',
-    id: '5',
-    country: 'United States',
-    fullName: 'Chenguang Zhao',
-    streetAddress: 'New York No. 1 Lake Park',
-    city: 'San Mateo',
-    state: 'CA',
-    zipCode: '94402',
-    phoneNumber: '646****672'
-  }];
-
   return (
-    <div>
+    <div style={{marginTop:10}}>
       <AddressModal>
         <Button>Add </Button>
       </AddressModal>

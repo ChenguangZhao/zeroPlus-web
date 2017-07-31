@@ -5,6 +5,7 @@ import {Breadcrumb, Layout, Tabs} from "antd";
 import {Link} from "react-router";
 import UserBaseInfo from "../../components/User/UserBaseInfo";
 import Address from '../../components/User/Address';
+import DefaultAddress from '../../components/User/DefaultAddress'
 
 const {Content} = Layout;
 
@@ -29,11 +30,12 @@ function PersonalInfomation(props) {
         {/*</Col>*/}
 
         {/*<Col span={17}>*/}
-        <Tabs defaultActiveKey="1">
+        <Tabs defaultActiveKey="1" tabPosition="left">
           <TabPane tab="Base Info" key="1">
             <UserBaseInfo user={user}/>
           </TabPane>
           <TabPane tab="Address" key="2">
+            <DefaultAddress />
             <Address />
           </TabPane>
         </Tabs>

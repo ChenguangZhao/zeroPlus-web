@@ -1,11 +1,51 @@
 import React from 'react';
 import './LoginForm.css';
-import { Button, Checkbox, Form, Icon, Input } from 'antd';
-import { connect } from 'dva';
-
+import {Button, Checkbox, Form, Icon, Input} from 'antd';
+import {connect} from 'dva';
 const FormItem = Form.Item;
 
+function signOutOfGoogle() {
+
+  let auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
+
+let auth2;
+
 class LoginForm extends React.Component {
+
+
+  componentDidMount = () => {
+
+    console.log("init google login");
+    const self = this;
+    gapi.load('auth2', function () {
+
+      auth2 = gapi.auth2.init({
+        client_id: '148335857553-c3igibm0rit240ojghj2cnvnlo6p2q92.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        scope: 'profile email'
+      });
+      let element = document.getElementById('loginGoogleButton')
+
+      auth2.attachClickHandler(element, {},
+        function (googleUser) {
+          console.log(googleUser);
+          let params = googleUser.w3;
+          params.token = googleUser.getAuthResponse().id_token;
+          self.props.dispatch({
+            type: 'login/loginWithGoogle',
+            payload: params
+          });
+        }, function (error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+    });
+  };
+
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -21,10 +61,12 @@ class LoginForm extends React.Component {
   handleLoginWithFacebook = () => {
     const self = this;
     FB.login(function (response) {
+      console.log(response);
       if (response.status === 'connected') {
         //取得 accessToken
         let accessToken = response.authResponse.accessToken;
         FB.api('/me?fields=name,first_name,last_name,email,gender,photos', function (response) {
+          console.log(response);
           response.accessToken = accessToken;
           self.props.dispatch({
             type: 'login/loginWithFacebook',
@@ -35,6 +77,7 @@ class LoginForm extends React.Component {
       }
     });
   };
+
 
   render() {
 
@@ -69,12 +112,60 @@ class LoginForm extends React.Component {
           <Button type="primary" htmlType="submit" className={"login-form-button"}>
             Log in
           </Button>
-          <Button type="primary" className={"login-facebook-button"} onClick={this.handleLoginWithFacebook}>
-            <i className="iconfont">&#xe600;</i>
-            Log in With Facebook
-          </Button>
 
-          Or <a href="/web/Register">register now!</a>
+
+          {/*<Button type="primary" className={"login-facebook-button"} onClick={this.handleLoginWithFacebook}>*/}
+          {/*<i className="iconfont">&#xe600;</i>*/}
+          {/*Log in With Facebook*/}
+          {/*</Button>*/}
+
+          {/*<a*/}
+          {/*style={{marginTop: 10}}*/}
+          {/*className="fb-login-button"*/}
+          {/*data-width="300px"*/}
+          {/*data-onlogin="checkLoginStateFromFacebook"*/}
+          {/*data-max-rows="1"*/}
+          {/*data-size="large"*/}
+          {/*data-button-type="login_with"*/}
+          {/*data-show-faces="false"*/}
+          {/*data-auto-logout-link="false"*/}
+          {/*data-use-continue-as="false"*/}
+          {/*>*/}
+
+          {/*</a>*/}
+
+          {/*<div*/}
+          {/*style={{width: 300, marginTop: 10}}*/}
+          {/*className="g-signin2"*/}
+          {/*data-onsuccess="checkLoginStateFromGoogle"*/}
+          {/*data-theme="dark"*/}
+          {/*data-longtitle="true">*/}
+
+          {/*</div>*/}
+          <div style={{marginTop: 5}}>
+            <img src="/image/google.png"
+                 style={{
+                   maxHeight: 30, width: 30,
+                   height: 30,
+                   cursor: 'pointer'
+                 }}
+                 id="loginGoogleButton"
+            >
+            </img>
+
+            <img src="/image/facebook.png"
+                 style={{
+                   maxHeight: 30, width: 30,
+                   height: 30,
+                   cursor: 'pointer',
+                   marginLeft: 5
+                 }}
+                 onClick={this.handleLoginWithFacebook}
+            >
+            </img>
+
+          </div>
+
         </FormItem>
       </Form>
     );

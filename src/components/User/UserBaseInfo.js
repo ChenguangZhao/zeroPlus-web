@@ -174,7 +174,7 @@ class UserBaseInfo extends React.Component {
             label="Birthday"
           >
             {getFieldDecorator('birthday', {
-              initialValue:moment(user.birthday)
+              initialValue:user.birthday?moment(user.birthday):""
             })(
               <DatePicker
                 style={{width: '40%'}}

@@ -13,8 +13,8 @@ function ProductGroup(props) {
         <Col span={6} style={{cursor: "pointer"}}>
           <UserTip user={content}>
             <h2>
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
-              {content.username}
+              <Avatar src={"/innerApi/portrait/"+content.userId}/>
+              <span style={{marginLeft:5}}>{content.username}</span>
             </h2>
           </UserTip>
         </Col>

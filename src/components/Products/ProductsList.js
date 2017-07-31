@@ -10,7 +10,9 @@ function ProductsList(props) {
     <ul>
       {
         datasource.map((item, i) => {
-          return <ProductGroup content={item}/>
+          if (item.productsVOS && item.productsVOS.length > 0) {
+            return <ProductGroup content={item}/>
+          }
         })
       }
     </ul>

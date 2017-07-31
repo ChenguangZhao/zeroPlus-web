@@ -56,7 +56,7 @@ class AddressModal extends React.Component {
         </span>
         <Modal
           key={this.state.record?this.state.record:0}
-          title="Edit"
+          title="Address"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}

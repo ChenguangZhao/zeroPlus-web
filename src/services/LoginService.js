@@ -18,6 +18,19 @@ export function queryLoginUser() {
   return request('/innerApi/queryLoginUser.do');
 }
 
-  export function logout(params) {
+/**
+ * 登出
+ * @returns {Object}
+ */
+export function logout() {
   return request('/innerApi/logout.do');
+}
+
+/**
+ * google login
+ * @param params
+ * @returns {*}
+ */
+export function googleLoginAuth(params) {
+  return postJson.postJson('/innerApi/googleLoginAuth.do', params);
 }

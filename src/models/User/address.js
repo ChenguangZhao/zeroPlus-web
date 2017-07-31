@@ -5,7 +5,8 @@ export default {
   namespace: 'address',
   state: {
     list: [],
-    loading: false
+    loading: false,
+    defaultAddress:null
   },
   reducers: {
     setState(state, action) {
@@ -27,13 +28,31 @@ export default {
       yield put({type: 'setState', payload: {loading: true}});
       const result = yield call(addressService.queryAddressByUserId);
       if (result.code === 0) {
+        if(result.data){
+          let defaultAddress = null;
+          result.data.map((item)=>{
+            if(item.isDefault === 1){
+              defaultAddress = item;
+            }
+          });
+          yield put({type: 'setState', payload: {defaultAddress: defaultAddress}});
+        }
         yield put({type: 'setState', payload: {list: result.data, loading: false}});
       }
     },
     *deleteAddress({payload: params}, {select, call, put}) {
-      console.log(params);
       yield put({type: 'setState', payload: {loading: true}});
       const result = yield call(addressService.deleteAddress, params);
+      if (result.code === 0) {
+        message.success('Success');
+        yield put({
+          type: 'queryAddress'
+        })
+      }
+    },
+    *settingDefaultAddress({payload: params}, {select, call, put}) {
+      yield put({type: 'setState', payload: {loading: true}});
+      const result = yield call(addressService.settingDefaultAddress, params);
       if (result.code === 0) {
         message.success('Success');
         yield put({

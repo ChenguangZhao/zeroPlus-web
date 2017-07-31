@@ -16,12 +16,7 @@ function ProductsDetail(props) {
    * share
    */
   function handleShare() {
-    FB.ui({
-      method: 'share',
-      display: 'popup',
-      href: 'https://zeropluscloset.com/',
-    }, function (response) {
-    });
+
   }
 
   return (

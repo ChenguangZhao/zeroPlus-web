@@ -44,16 +44,10 @@ class Header extends React.Component {
    *登出按钮
    */
   handleLogout = () => {
-    const self = this;
-    FB.logout(function (response) {
-      if (response.status !== 'connected') {
-        self.props.dispatch({
-          type: 'login/logout',
-          payload: response
-        })
+    this.props.dispatch({
+      type: 'login/logout',
+    })
 
-      }
-    });
   };
 
   render() {

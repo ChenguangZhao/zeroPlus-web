@@ -26,3 +26,12 @@ export function queryAddressByUserId() {
 export function deleteAddress(params) {
   return postJson.postJson('/innerApi/deleteAddress.do', params);
 }
+
+/**
+ *
+ * @param params
+ * @returns {*}
+ */
+export function settingDefaultAddress(params) {
+  return postJson.postJson('/innerApi/settingDefaultAddress.do', params);
+}
