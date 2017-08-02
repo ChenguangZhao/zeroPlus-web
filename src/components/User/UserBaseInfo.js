@@ -4,6 +4,7 @@ import {AutoComplete, Button, DatePicker, Form, message, Radio} from "antd";
 import HeadPortrait from "../../components/User/HeadPortrait";
 import moment from "moment";
 import * as request from "../../utils/postJson";
+import UploadImage from '../Image/UploadImage'
 
 const {MonthPicker, RangePicker} = DatePicker;
 const FormItem = Form.Item;
@@ -98,10 +99,10 @@ class UserBaseInfo extends React.Component {
               <span>Portrait
               </span>
             }
-            extra="仅支持JPG、PNG格式，大小不能超过2M"
+            extra="You can only upload JPG file and Image must smaller than 2MB"
           >
             {getFieldDecorator('portrait')(
-              <HeadPortrait />
+              <UploadImage />
             )}
           </FormItem>
 

@@ -11,7 +11,7 @@ function ProductsList(props) {
       {
         datasource.map((item, i) => {
           if (item.productsVOS && item.productsVOS.length > 0) {
-            return <ProductGroup content={item}/>
+            return <ProductGroup user={item}/>
           }
         })
       }

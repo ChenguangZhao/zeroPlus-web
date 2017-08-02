@@ -4,8 +4,8 @@ import "./PersonalInfomation.css";
 import {Breadcrumb, Layout, Tabs} from "antd";
 import {Link} from "react-router";
 import UserBaseInfo from "../../components/User/UserBaseInfo";
-import Address from '../../components/User/Address';
-import DefaultAddress from '../../components/User/DefaultAddress'
+import Address from '../../components/Address/Address';
+import DefaultAddress from '../../components/Address/DefaultAddress'
 
 const {Content} = Layout;
 

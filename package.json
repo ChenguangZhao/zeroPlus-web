@@ -18,8 +18,11 @@
     "rc-scroll-anim": "^1.0.6",
     "rc-tween-one": "^1.2.8",
     "react": "^15.4.0",
+    "react-avatar-editor": "10.1.0",
+    "react-crop": "^4.0.2",
     "react-dom": "^15.4.0",
-    "react-sublime-video": "^0.2.5"
+    "react-sublime-video": "^0.2.5",
+    "reqwest": "^2.0.5"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
