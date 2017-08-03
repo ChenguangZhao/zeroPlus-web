@@ -75,6 +75,9 @@ class Header extends React.Component {
         <Item key="info">
           <Link to="/web/PersonalInfomation">Infomation</Link>
         </Item>
+        <Item key="manage">
+          <Link to="/web/ProductsManage">Products</Link>
+        </Item>
         <Item key="Logout">
           <a onClick={this.handleLogout}>Logout</a>
         </Item>

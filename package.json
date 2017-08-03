@@ -5,7 +5,7 @@
     "build": "roadhog build"
   },
   "engines": {
-    "install-node": "6.9.2"
+    "install-node": "6.11.1"
   },
   "dependencies": {
     "antd": "^2.11.2",
@@ -22,7 +22,8 @@
     "react-crop": "^4.0.2",
     "react-dom": "^15.4.0",
     "react-sublime-video": "^0.2.5",
-    "reqwest": "^2.0.5"
+    "reqwest": "^2.0.5",
+    "react-quill": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

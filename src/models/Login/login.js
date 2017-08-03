@@ -47,7 +47,9 @@ export default {
       if (result.code === 0) {
         if (result.data === null) {
           console.log("未登录");
-          if (window.location.pathname === "/web/PersonalInfomation") {
+          if (window.location.pathname === "/web/PersonalInfomation"
+            || window.location.pathname === "/web/ProductsManage"
+            || window.location.pathname === "/web/AddProduct") {
             yield put(routerRedux.push(`/web/Login?back=${window.location.pathname}`));
           }
         } else {

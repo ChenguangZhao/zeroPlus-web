@@ -8,6 +8,8 @@ import Login from './routes/Login/Login';
 import Products from './routes/Products/Products';
 import ProductDetail from './routes/Products/Detail';
 import PersonalInfomation from './routes/User/PersonalInfomation';
+import ProductsManage from './routes/Products/Manage/ProductsManage';
+import AddProduct from './routes/Products/Manage/AddProduct';
 
 function RouterConfig({history}) {
   return (
@@ -18,6 +20,8 @@ function RouterConfig({history}) {
         <Route path="/web/Products" component={Products}/>
         <Route path="/web/ProductDetail" component={ProductDetail}/>
         <Route path="/web/PersonalInfomation" component={PersonalInfomation}/>
+        <Route path="/web/ProductsManage" component={ProductsManage}/>
+        <Route path="/web/AddProduct" component={AddProduct}/>
       </Route>
       <Route path="/web/Home" component={IndexPage}/>
       <Route path="/web/" component={IndexPage}/>

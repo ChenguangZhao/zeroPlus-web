@@ -7,13 +7,11 @@ import reqwest from 'reqwest';
 
 
 function convertBase64UrlToBlob(urlData) {
-
-  var bytes = window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
-
+  let bytes = window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
   //处理异常,将ascii码小于0的转换为大于0
-  var ab = new ArrayBuffer(bytes.length);
-  var ia = new Uint8Array(ab);
-  for (var i = 0; i < bytes.length; i++) {
+  let ab = new ArrayBuffer(bytes.length);
+  let ia = new Uint8Array(ab);
+  for (let i = 0; i < bytes.length; i++) {
     ia[i] = bytes.charCodeAt(i);
   }
 
@@ -72,35 +70,37 @@ class UploadImage extends React.Component {
   handleSaveImage = (data) => {
     const imgUrl = this.editor.getImageScaledToCanvas().toDataURL();
     // const rect = this.editor.getCroppingRect();
-    // console.log(this.editor);
-    console.log(this.state.file);
+    console.log(this.editor);
+    console.log(this.editor.state.image);
+
     const file = convertBase64UrlToBlob(imgUrl);
     console.log(file);
     this.setState({uploading: true});
-    console.log(this.state.file);
 
     const formData = new FormData();
     formData.append('multipartFile', file);
+    const self = this;
 
-    reqwest({
-      url: '/innerApi/uploadHeadPortrait.do',
-      method: 'post',
-      processData: false,
-      data: formData,
-      success: () => {
-        this.setState({
-          file: null,
-          uploading: false,
-        });
-        message.success('upload successfully.');
-      },
-      error: () => {
-        this.setState({
-          uploading: false,
-        });
-        message.error('upload failed.');
-      },
-    });
+    // reqwest({
+    //   url: '/innerApi/uploadHeadPortrait.do',
+    //   method: 'post',
+    //   processData: false,
+    //   data: formData,
+    //   success: () => {
+    //     this.setState({
+    //       file: null,
+    //       uploading: false,
+    //     });
+    //     message.success('upload successfully.');
+    //     window.location.reload();
+    //   },
+    //   error: () => {
+    //     this.setState({
+    //       uploading: false,
+    //     });
+    //     message.error('upload failed.');
+    //   },
+    // });
   }
 
   render() {
@@ -124,8 +124,7 @@ class UploadImage extends React.Component {
                 rotate={0}
                 onSave={this.handleSaveImage}
               />
-              {this.editor ?
-                <img src={this.editor.getImageScaledToCanvas().toDataURL()}/> : ''}
+
               <Slider style={{width: '20%'}} defaultValue={this.state.scale} max={2} min={0.5} step={0.1}
                       onChange={this.handleChangeSlider}/>
               <Button onClick={this.handleSaveImage} loading={this.state.uploading}>
