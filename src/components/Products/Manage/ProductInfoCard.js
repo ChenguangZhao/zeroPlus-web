@@ -1,10 +1,10 @@
 import React from 'react';
-import './FirstContent.css';
-import {Card, Input, Form,Row,Col,Anchor} from 'antd'
+import './ProductInfoCard.css';
+import {Card, Input, Form, Row, Col, Anchor} from 'antd'
 import ReactQuill from 'react-quill'
 import theme from 'react-quill/dist/quill.snow.css'
 const FormItem = Form.Item;
-const { Link } = Anchor;
+const {Link} = Anchor;
 
 const {TextArea} = Input;
 
@@ -25,34 +25,34 @@ class FirstContent extends React.Component {
     const formItemLayout = {
       // wrapperCol: {span: 14}
     }
+    const {getFieldDecorator} = this.props;
+
     return (
       <Row gutter={16}>
         <Col span={22}>
           <Card style={{width: '100%', height: 500, marginTop: 10}}>
-            {/*<h3>Title</h3>*/}
-            {/*<Input size="large"/>*/}
-
-            {/*<h3>Description</h3>*/}
-            {/*<TextArea rows={4}/>*/}
-
-            {/*<h3>Product Information</h3>*/}
-            {/*<ReactQuill*/}
-            {/*style={{height: 200}}*/}
-            {/*value={this.state.text}*/}
-            {/*onChange={this.handleChange}/>*/}
 
             <Form>
               <FormItem
                 label="Title"
                 {...formItemLayout}
               >
-                <Input placeholder="Title"/>
+                {getFieldDecorator('title', {
+                  rules: [{required: true, message: 'Please input title'}],
+                })(
+                  <Input placeholder="Title"/>
+                )}
+
               </FormItem>
               <FormItem
                 label="Description"
                 {...formItemLayout}
               >
-                <Input placeholder="Description"/>
+                {getFieldDecorator('description', {
+                  rules: [{required: true, message: 'Please input description'}],
+                })(
+                  <Input placeholder="Description"/>
+                )}
               </FormItem>
               <FormItem
                 label="Product Information"

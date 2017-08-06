@@ -21,6 +21,8 @@ const app = dva({
 
 app.model(require("./models/Login/login"));
 
+app.model(require("./models/Products/addProducts"));
+
 app.model(require("./models/Products/productDetail"));
 
 app.model(require("./models/Products/products"));

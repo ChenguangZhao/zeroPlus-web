@@ -1,9 +1,9 @@
 import React from 'react';
-import './SecondContent.css';
+import './ImageCard.css';
 import {Card, Upload, Icon, Modal} from 'antd'
+import {connect} from 'dva'
 
-
-class SecondContent extends React.Component {
+class ImageCard extends React.Component {
   state = {
     previewVisible: false,
     previewImage: '',
@@ -20,17 +20,27 @@ class SecondContent extends React.Component {
   }
 
   handleChange = ({fileList}) => {
-
     // 显示处理后的图片
-    // fileList = fileList.map((file) => {
-    //   if (file.response && file.response.data) {
-    //     file.url = file.response.data;
-    //     file.thumbUrl = file.response.data;
-    //   }
-    //   return file;
-    // });
+    fileList = fileList.map((file) => {
+      if (file.response && file.response.data) {
+        file.url = file.response.data;
+        file.thumbUrl = file.response.data;
+      }
+      return file;
+    });
     this.setState({fileList})
-  }
+  };
+
+  handleRemove = (file) => {
+    const url = file.url;
+    console.log(this.props)
+    this.props.dispatch({
+      type: 'addProducts/deleteProductsImage',
+      payload: {
+        url: url
+      }
+    })
+  };
 
   render() {
     const {previewVisible, previewImage, fileList} = this.state;
@@ -51,6 +61,7 @@ class SecondContent extends React.Component {
             fileList={fileList}
             onPreview={this.handlePreview}
             onChange={this.handleChange}
+            onRemove={this.handleRemove}
           >
             {fileList.length >= 4 ? null : uploadButton}
           </Upload>
@@ -63,4 +74,9 @@ class SecondContent extends React.Component {
   }
 }
 
-export default SecondContent;
+function mapStateToProps(state) {
+  return {...state.addProducts};
+}
+
+export default connect(mapStateToProps)(ImageCard);
+
