@@ -29,14 +29,12 @@ class PriceCard extends React.Component {
             )}
           </FormItem>
           <FormItem
-            label="Publish product on"
+            label="Favorable Price"
           >
-            <DatePicker
-              style={{width: '100%'}}
-              showTime
-              format="YYYY-MM-DD HH:mm:ss"
-              placeholder="Select Time"
-            />
+            {getFieldDecorator('favorablePrice')(
+              <Input placeholder="0.00"/>
+            )}
+
 
           </FormItem>
         </Form>

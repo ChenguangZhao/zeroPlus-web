@@ -12,6 +12,10 @@ class ImageCard extends React.Component {
 
   handleCancel = () => this.setState({previewVisible: false})
 
+  /**
+   * 预览
+   * @param file
+   */
   handlePreview = (file) => {
     this.setState({
       previewImage: file.url || file.thumbUrl,
@@ -19,16 +23,28 @@ class ImageCard extends React.Component {
     });
   }
 
+  /**
+   * 改变
+   * @param fileList
+   */
   handleChange = ({fileList}) => {
+    let imageUrlArray = [];
     // 显示处理后的图片
     fileList = fileList.map((file) => {
       if (file.response && file.response.data) {
         file.url = file.response.data;
         file.thumbUrl = file.response.data;
+        imageUrlArray.push(file.url);
       }
       return file;
     });
     this.setState({fileList})
+    this.props.dispatch({
+      type: 'addProducts/setState',
+      payload: {
+        imageUrlArray: imageUrlArray
+      }
+    })
   };
 
   handleRemove = (file) => {
@@ -50,6 +66,8 @@ class ImageCard extends React.Component {
         <div className="ant-upload-text">Upload</div>
       </div>
     );
+
+    console.log(this.props.imageUrlArray);
     return (
       <Card style={{width: '100%', height: 400, marginTop: 10}} title="Images">
         <div className="clearfix">

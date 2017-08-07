@@ -37,7 +37,7 @@ class FirstContent extends React.Component {
                 label="Title"
                 {...formItemLayout}
               >
-                {getFieldDecorator('title', {
+                {getFieldDecorator('name', {
                   rules: [{required: true, message: 'Please input title'}],
                 })(
                   <Input placeholder="Title"/>
@@ -58,7 +58,9 @@ class FirstContent extends React.Component {
                 label="Product Information"
                 {...formItemLayout}
               >
-                <ReactQuill style={{height: 200}} value={this.state.text} onChange={this.handleChange}/>
+                {getFieldDecorator('information')(
+                  <ReactQuill style={{height: 200}} />
+                )}
               </FormItem>
             </Form>
           </Card>

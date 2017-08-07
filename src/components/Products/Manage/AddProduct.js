@@ -1,10 +1,11 @@
 import React from "react";
 import "./AddProduct.css";
-import {Button, Col, Row, Form} from "antd";
+import {Button, Col, Row, Form, message} from "antd";
 import ProductInfoCard from "./ProductInfoCard";
 import ImageCard from "./ImageCard";
 import PriceCard from "./PriceCard";
-import VariantsCard from "./VariantsCard";
+import InventoryCard from "./InventoryCard";
+import {connect} from 'dva'
 
 
 class AddProduct extends React.Component {
@@ -15,9 +16,20 @@ class AddProduct extends React.Component {
   }
 
   handleSave = (e) => {
+    const self = this;
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll(function (err, values) {
+    self.props.form.validateFieldsAndScroll(function (err, values) {
       if (!err) {
+        console.log(values);
+        if (self.props.imageUrlArray.length < 1) {
+          message.error("请上传至少一个图片");
+          return;
+        }
+        values.imageUrlArray = self.props.imageUrlArray;
+        self.props.dispatch({
+          type: 'addProducts/addProducts',
+          payload: values
+        })
       }
     })
   };
@@ -33,7 +45,7 @@ class AddProduct extends React.Component {
             <PriceCard getFieldDecorator={getFieldDecorator}/>
           </Col>
           <Col span={12}>
-            <VariantsCard />
+            <InventoryCard getFieldDecorator={getFieldDecorator}/>
           </Col>
         </Row>
         <Button onClick={this.handleSave} size="large" style={{marginTop: 10}}>Save</Button>
@@ -42,4 +54,8 @@ class AddProduct extends React.Component {
   }
 }
 
-export default Form.create()(AddProduct);
+function mapStateToProps(state) {
+  return {...state.addProducts};
+}
+
+export default connect(mapStateToProps)(Form.create()(AddProduct));

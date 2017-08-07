@@ -17,3 +17,11 @@ export function queryProducts(id) {
 export function deleteProductsImage(params) {
   return postJson.postJson('/innerApi/deleteProductsImage.do',params);
 }
+
+/**
+ * 新增产品
+ * @param params
+ */
+export function addProducts(params) {
+  return postJson.postJson('/innerApi/addProducts.do',params);
+}
