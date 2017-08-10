@@ -81,26 +81,26 @@ class UploadImage extends React.Component {
     formData.append('multipartFile', file);
     const self = this;
 
-    // reqwest({
-    //   url: '/innerApi/uploadHeadPortrait.do',
-    //   method: 'post',
-    //   processData: false,
-    //   data: formData,
-    //   success: () => {
-    //     this.setState({
-    //       file: null,
-    //       uploading: false,
-    //     });
-    //     message.success('upload successfully.');
-    //     window.location.reload();
-    //   },
-    //   error: () => {
-    //     this.setState({
-    //       uploading: false,
-    //     });
-    //     message.error('upload failed.');
-    //   },
-    // });
+    reqwest({
+      url: '/innerApi/uploadHeadPortrait.do',
+      method: 'post',
+      processData: false,
+      data: formData,
+      success: () => {
+        this.setState({
+          file: null,
+          uploading: false,
+        });
+        message.success('upload successfully.');
+        window.location.reload();
+      },
+      error: () => {
+        this.setState({
+          uploading: false,
+        });
+        message.error('upload failed.');
+      },
+    });
   }
 
   render() {

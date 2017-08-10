@@ -7,7 +7,6 @@ import PriceCard from "./PriceCard";
 import InventoryCard from "./InventoryCard";
 import {connect} from 'dva'
 
-
 class AddProduct extends React.Component {
 
   constructor(props) {
@@ -20,12 +19,18 @@ class AddProduct extends React.Component {
     e.preventDefault();
     self.props.form.validateFieldsAndScroll(function (err, values) {
       if (!err) {
-        console.log(values);
+        //image
         if (self.props.imageUrlArray.length < 1) {
           message.error("请上传至少一个图片");
           return;
         }
         values.imageUrlArray = self.props.imageUrlArray;
+        //userId
+        if (!self.props.userId) {
+          message.error("Please input designer");
+          return;
+        }
+        values.userId = self.props.userId;
         self.props.dispatch({
           type: 'addProducts/addProducts',
           payload: values
@@ -36,9 +41,10 @@ class AddProduct extends React.Component {
 
   render() {
     const {getFieldDecorator} = this.props.form;
+    const {dispatch} = this.props;
     return (
       <div>
-        <ProductInfoCard getFieldDecorator={getFieldDecorator}/>
+        <ProductInfoCard getFieldDecorator={getFieldDecorator} dispatch={dispatch}/>
         <ImageCard/>
         <Row gutter={16}>
           <Col span={12}>
